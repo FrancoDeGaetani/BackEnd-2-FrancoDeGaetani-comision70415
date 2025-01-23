@@ -1,110 +1,72 @@
 import { Router } from "express";
+import ProductsManager from "../fileMAnager/productManager.js";
 
 const router = Router();
 
-let products = [
-        {
-            title:'Smart TV 4K UHD Samsung 43',
-            description:'El Smart TV Samsung 43" UN43CU7000GCFV tiene una resolución cuatro veces superior a la de una TV Full HD',
-            code:'UN43CU7000GCFV',
-            price: 629.999,
-            status:true,
-            stock:25,
-            category:'Smart TV',
-            thumbnails:'https://images.fravega.com/f500/21022979b6a04ce4886c47c99584fc25.jpg',
-            id: '1'
-        },
-        {
-            title:'PlayStation 5 PS5 Slim Standar',
-            description:'Experimentá una carga ultrarrápida con un SSD de velocidad ultra alta, una inmersión más profunda con soporte para retroalimentación háptica, gatillos adaptativos y audio 3D y una generación completamente nueva de increíbles juegos de PlayStation®.',
-            code:'TA45BU7450GCGV' ,
-            price: 999.494,
-            status:true,
-            stock:50,
-            category:'Consolas',
-            thumbnails:'https://images.fravega.com/f300/d3eadfc1d7530a96a36138ace42ace1d.jpg.webp',
-            id: '2'
-        },
-        {
-            title:'Celular Samsung Galaxy A06',
-            description:'El Samsung Galaxy A06 64 GB Negro está equipado con un procesador MediaTek G85 y memoria interna para jugar, transmitir videos y navegar en redes sociales. La cámara principal de 50MP captura imágenes increíbles, mientras que la batería de 5,000mAh te permite estar conectado por más tiempo. Disfrutá de la multitarea con el almacenamiento adicional.',
-            code:'LA20KO7294GCBS',
-            price:199.999,
-            status:true,
-            stock:100,
-            category:'Celularer',
-            thumbnails:'https://images.fravega.com/f300/e445ac5475e2e5507c98454983e667e3.jpg.webp',
-            id: '3'
-        }
-];
+const productsManager = new ProductsManager ('./Products.json');
 
 
-router.get('/', (req,res) => {
+router.get('/', async (req,res) => {
+    const products = await productsManager.leerProductos();
     res.json(products);
 })
 
 
-router.get('/:id', (req,res)=>{
+router.get('/:id',async (req,res)=>{
 
-const productsId = req.params.id;
-const productoBuscado = products.find(e => e.id === productsId)
-
-if (!productoBuscado){
-    return res.send({status: 'error', error : 'products not found'})
-}
-res.send({productoBuscado})
+    const product = await productsManager.leerProducto(req.params.id);
+    if (!product) return res.status(404).json({ error: 'Producto no encontrado' });
+    res.json(product);
 
 })
 
-router.post('/',(req, res)=>{
 
-    let producto = req.body;
+router.post('/', async (req, res)=>{
 
-    if(!producto.title||!producto.description||!producto.code||!producto.price||
-        !producto.status||!producto.stock||!producto.category||!producto.thumbnails||('id' in producto)){
+    const { title, description, code, price, status, stock, category, thumbnails  } = req.body;
+    if (!title||!description||!code||!price||!status||!stock||!category||!thumbnails) {
+        return res.status(400).json({ error: 'Todos los campos son obligatorios: name, price, description, stock' });
+    }
 
-            return res.status(400).send({status: 'error', error: 'Incomplete value or have and id'})
+    const newProduct = { title, description, code, price, status, stock, category, thumbnails };
 
+    try {
+        await productsManager.crearProducto(newProduct);
+        res.status(201).json({ message: 'Producto agregado con éxito', product: newProduct });
+    } catch (error) {
+        res.status(500).json({ error: 'Error al agregar el producto', details: error.message });
+    }
+})
+
+router.put('/:id', async (req, res)=>{
+
+    const { title, description, code, price, status, stock, category, thumbnails } = req.body;
+    const updatedProduct = { title, description, code, price, status, stock, category, thumbnails };
+
+    try {
+        const result = await productsManager.actualizarProducto(req.params.id, updatedProduct);
+
+        if (!result) return res.status(404).json({ error: 'Producto no encontrado' });
+
+        res.json({ message: 'Producto actualizado con éxito', product: result });
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error al actualizar el producto', details: error.message });
+    }
+})
+
+router.delete('/:id',async (req, res)=>{
+
+    try {
+            const result = await productsManager.eliminarProducto(req.params.id);
+            
+            if (!result){
+                return res.status(404).json({ error: 'Producto no encontrado' })};
+
+            res.json({ message: 'Producto eliminado con éxito' });
+        } catch (error) {
+            res.status(500).json({ error: 'Error al eliminar el producto', details: error.message });
         }
-
-    products.push({...producto, id : (products.length + 1).toString() });
-    res.send({status: 'succes', message : 'producto created'});
-    
-})
-
-router.put('/:id',(req, res)=>{
-
-    const productId = req.params.id;
-    const updateProduct = req.body;
-    const productIndex = products.findIndex(e => e.id === productId);
-
-
-    if(productIndex === -1){
-        return res.status(404).send({status:'error', message:'Product not found'})
-    }
-
-    if ('id' in updateProduct) {
-        return res.status(400).json({ error: `id cant't be changed` });
-    }
-
-    products[productIndex] = { ...products[productIndex], ...updateProduct}
-
-    res.send({status: 'success' , message : 'Product Updated'})
-
-
-})
-
-router.delete('/:id',(req, res)=>{
-
-    let productId = req.params.id
-    const productIndex = products.findIndex(e => e.id === productId);
-
-    if(productIndex === -1){
-        return res.status(404).send({status:'error', message:'Product not found'})
-    }
-
-    products.splice(productIndex,1);
-    res.send({tatus:'success', message : 'Product deleted'})
 
 
 })

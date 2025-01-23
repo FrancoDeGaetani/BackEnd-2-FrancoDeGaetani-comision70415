@@ -1,7 +1,7 @@
 import express from "express";
-
 import productRouter from "./routes/product.router.js"
 import cartsRouter from "./routes/carts.router.js"
+
 
 const app = express();
 
