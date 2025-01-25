@@ -8,17 +8,6 @@
     "stock": 100,
     "category": "Celularer",
     "thumbnails": "https://images.fravega.com/f300/e445ac5475e2e5507c98454983e667e3.jpg.webp",
-    "id": "3"
-  },
-  {
-    "title": "radio",
-    "description": "El Samsung Galaxy A06 64 GB Negro está equipado con un procesador MediaTek G85 y memoria interna para jugar, transmitir videos y navegar en redes sociales. La cámara principal de 50MP captura imágenes increíbles, mientras que la batería de 5,000mAh te permite estar conectado por más tiempo. Disfrutá de la multitarea con el almacenamiento adicional.",
-    "code": "LA20KO7294GCBS",
-    "price": 199.999,
-    "status": true,
-    "stock": 100,
-    "category": "Celularer",
-    "thumbnails": "https://images.fravega.com/f300/e445ac5475e2e5507c98454983e667e3.jpg.webp",
     "id": "4"
   },
   {
@@ -33,7 +22,7 @@
     "id": "5"
   },
   {
-    "title": "radio",
+    "title": "asdasdasd",
     "description": "El Samsung Galaxy A06 64 GB Negro está equipado con un procesador MediaTek G85 y memoria interna para jugar, transmitir videos y navegar en redes sociales. La cámara principal de 50MP captura imágenes increíbles, mientras que la batería de 5,000mAh te permite estar conectado por más tiempo. Disfrutá de la multitarea con el almacenamiento adicional.",
     "code": "LA20KO7294GCBS",
     "price": 199.999,
@@ -42,5 +31,16 @@
     "category": "Celularer",
     "thumbnails": "https://images.fravega.com/f300/e445ac5475e2e5507c98454983e667e3.jpg.webp",
     "id": "6"
+  },
+  {
+    "title": "chau",
+    "description": "El Samsung Galaxy A06 64 GB Negro está equipado con un procesador MediaTek G85 y memoria interna para jugar, transmitir videos y navegar en redes sociales. La cámara principal de 50MP captura imágenes increíbles, mientras que la batería de 5,000mAh te permite estar conectado por más tiempo. Disfrutá de la multitarea con el almacenamiento adicional.",
+    "code": "LA20KO7294GCBS",
+    "price": 199.999,
+    "status": true,
+    "stock": 100,
+    "category": "Celularer",
+    "thumbnails": "https://images.fravega.com/f300/e445ac5475e2e5507c98454983e667e3.jpg.webp",
+    "id": "7"
   }
 ]
