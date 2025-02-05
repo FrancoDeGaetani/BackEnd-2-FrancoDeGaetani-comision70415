@@ -1,0 +1,23 @@
+.products{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    margin: auto;
+    gap: 20px;
+}
+.product-container{
+    width: 250px;
+    background-color: #000000;
+    padding: 10px;
+    border: 3px solid #4f4f4f;
+}
+.products-title, .products-category{
+    text-align: center;
+    color: white;
+}
+
+p{
+    color: white;
+    text-align: center;
+}

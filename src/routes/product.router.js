@@ -11,11 +11,15 @@ router.get('/', async (req,res) => {
     res.json(products);
 })
 
+router.get('/products', async (req,res) => {
+    const products = await productsManager.leerProductos();
+    res.render('index', { products , style : 'product.css' });
+})
 
 router.get('/:id',async (req,res)=>{
 
     const product = await productsManager.leerProducto(req.params.id);
-    if (!product) return res.status(404).json({ error: 'Producto no encontrado' });
+    if (!product) return res.status(404).json({ error: 'Producto no encontrado00' });
     res.json(product);
 
 })
