@@ -6,7 +6,7 @@ const productsManager = new ProductsManager ('./Products.json');
 
 
 router.get('/realTimeProducts', async (req, res) => {
-    res.render('realTimeProducts', { style : 'realTimeProducts.css' });
+    res.render('realTimeProducts', { style : 'realTime.css' });
 })
 
 router.get('/', async (req, res) => {
