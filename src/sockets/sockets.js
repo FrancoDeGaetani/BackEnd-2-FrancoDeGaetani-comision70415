@@ -4,8 +4,10 @@ import ProductsManager from "../fileMAnager/productManager.js";
 const productManager = new ProductsManager();
 
 const configureSocket = (httpServer) => {
+    
     const server = new Server(httpServer);
 
+    
     server.on('connection', async (socket) => {
         console.log('Cliente conectado');
 

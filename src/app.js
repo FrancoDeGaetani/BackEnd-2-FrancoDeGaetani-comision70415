@@ -28,7 +28,7 @@ app.use('/', productRouter);
 app.use('/products', realRouter);
 
 app.get('/realtimeproducts', (req, res) => {
-    res.render('realTimeProducts');
+    res.render('realTimeProducts', {style: 'realTime.css'});
 });
 
 

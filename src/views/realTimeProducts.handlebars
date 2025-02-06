@@ -1,8 +1,7 @@
 
-    <h2 class="form-title">
-        Agregar Producto
-    </h2>
+    
     <form id="form-agregar" class="form-productos">
+        <h2 class="form-title">Agregar Producto</h2>
         <input type="text" id="title" placeholder="Nombre" required>
         <input type="text" id="descripcion" placeholder="Descripción" required>
         <input type="text" id="codigo" placeholder="Codigo" required>
@@ -12,7 +11,7 @@
         <button type="submit">Agregar</button>
     </form>
 
-    <div id="productos-lista"></div>
+    <div id="productos-lista" class="productos"></div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/index.js"></script>

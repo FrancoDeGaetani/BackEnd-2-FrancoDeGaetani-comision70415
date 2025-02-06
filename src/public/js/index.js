@@ -7,12 +7,12 @@ socket.on('productosActualizados', (productos) => {
     productosLista.innerHTML = '';
     productos.forEach(prod => {
         productosLista.innerHTML += 
-        `<div>
+        `<div class="producto-card">
             <h3 class="producto-titulo">${prod.title}</h3>
             <div class="productos-container">
-                <p>${prod.categoria}</p>
-                <p>${prod.descripcion}</p>
-                <p>${prod.codigo}</p>
+                <p>Categoria: ${prod.categoria}</p>
+                <p>Descripcion: ${prod.descripcion}</p>
+                <p>Codigo: ${prod.codigo}</p>
             </div>
             <button class="product-button"onclick="eliminarProducto('${prod.id}')">Eliminar</button></div>
         </div>`;

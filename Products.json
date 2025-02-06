@@ -1,11 +1,47 @@
 [
   {
-    "title": "ewqeqw",
-    "descripcion": "qwe",
-    "codigo": "qwe",
+    "title": "asd",
+    "descripcion": "asd",
+    "codigo": "asd",
     "precio": "123",
-    "stock": "12311",
-    "categoria": "213123asd",
+    "stock": "123",
+    "categoria": "asd",
+    "id": "1"
+  },
+  {
+    "title": "franco",
+    "descripcion": "asd",
+    "codigo": "asd12",
+    "precio": "123",
+    "stock": "312",
+    "categoria": "asd",
+    "id": "2"
+  },
+  {
+    "title": "asd",
+    "descripcion": "asd",
+    "codigo": "asd",
+    "precio": "123",
+    "stock": "123",
+    "categoria": "asd",
     "id": "3"
+  },
+  {
+    "title": "gfdsg",
+    "descripcion": "sdfgsdfg",
+    "codigo": "sdfgsdfg",
+    "precio": "1234",
+    "stock": "4321",
+    "categoria": "dsgf2345",
+    "id": "4"
+  },
+  {
+    "title": "sadgsr",
+    "descripcion": "tjh",
+    "codigo": "jertyjm",
+    "precio": "346745",
+    "stock": "454563456",
+    "categoria": "dfg321345",
+    "id": "5"
   }
 ]
