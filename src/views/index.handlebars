@@ -1,12 +1,30 @@
 
+<h1>Lista de Productos</h1>
 
-<div class="products">
+<div class="products-container">
     {{#each products}}
-        <div class="product-container">
-            <h2 class="products-title"><strong>Nombre: </strong>{{title}}</h2>
-            <p class="products-category"><strong>Categoria: </strong>{{categoria}}</p>
-            <p class="products-description"><strong>Descripcion: </strong>{{descripcion}}</p>
-            <p class="products-price"><strong>Precio: </strong>{{precio}}</p>
+        <div class="product-card">
+            <h2>{{this.title}}</h2>
+            <p>{{this.description}}</p>
+            <p>Precio: ${{this.price}}</p>
+            <p>Categoría: {{this.category}}</p>
+            <button class="add-to-cart" data-product-id="{{this._id}}">Agregar al carrito</button>
         </div>
     {{/each}}
 </div>
+
+<div class="pagination">
+
+    {{#if hasPrevPage}}
+    <a href="{{prevLink}}" class="btn btn-primary">Anterior</a>
+{{/if}}
+
+<p>Página {{page}} de {{totalPages}}</p>
+
+{{#if hasNextPage}}
+    <a href="{{nextLink}}" class="btn btn-primary">Siguiente</a>
+{{/if}}
+
+</div>
+
+<script src="/js/products.js"></script>

@@ -1,37 +1,82 @@
-.products{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
-    margin: auto;
-    gap: 20px;
-}
-.product-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 350px;
-    height: 400px;
-    background-color: #000000;
-    padding: 10px;
-    border: 3px solid gray;
-    border-radius: 5px;
-}
-.products-title{
+
+h1 {
+    width: 70%;
+    margin: 30px auto;
     text-align: center;
     border-radius: 5px;
-    border: 1px solid gray;
-    background-color: white;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     padding: 15px;
 }
 
-p{
-    width: 90%;
-    text-align: center;
-    height: 20px;
+.products-container{
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin: auto;
-    padding: 10px;
+}
+.product-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    border: 1px solid gray;
-    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 20px auto;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+}
+
+.product-card h2 {
+    font-size: 30px;
+    margin: 0 0 10px 0;
+}
+
+.product-card p {
+    color: #555;
+}
+
+.product-card .add-to-cart {
+    background-color: #28a745;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.product-card .add-to-cart:hover {
+    background-color: #218838;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 70px;
+}
+
+.pagination p {
+    display: inline;
+    margin: 0 10px;
+    color: #333;
+}
+
+.pagination .btn {
+    background-color: #007bff;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.pagination .btn:hover {
+    background-color: #0056b3;
 }
