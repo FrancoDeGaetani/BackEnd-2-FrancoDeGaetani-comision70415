@@ -7,10 +7,15 @@ import { configureSocket } from './sockets/sockets.js';
 import productRouter from "./routes/product.router.js";
 import cartRouter from "./routes/carts.router.js";
 import realRouter from "./routes/realTime.router.js";
+import sessionsRouter from "./routes/session.router.js"
 
 import mongoose from 'mongoose'; 
 import dotenv from "dotenv";
 dotenv.config();
+
+import passport from "passport";
+import cookieParser from 'cookie-parser';
+import initializePassport from "../src/config/passport.config.js";
 
 const app = express();
 const httpServer = app.listen(8080, ()=>console.log('escuchando'))
@@ -20,12 +25,17 @@ app.use(express.json())
 app.use(express.urlencoded({extended : true}));
 app.use(express.static( __dirname + '/public'))
 
+app.use(cookieParser());
+app.use(passport.initialize()); 
+initializePassport();
+
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 
 app.use('/api/products', productRouter);
 app.use('/api/carts', cartRouter);
+app.use('/api/sessions', sessionsRouter); 
 app.use('/products', realRouter);
 
 
@@ -38,9 +48,7 @@ mongoose.connect(URIMongoDB)
         process.exit();
     });
 
-app.get('/realtimeproducts', (req, res) => {
-    res.render('realTimeProducts', {style: 'realTime.css'});
-});
+
 
 
 
