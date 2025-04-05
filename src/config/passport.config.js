@@ -1,30 +1,25 @@
 import passport from "passport";
-import jwt from "passport-jwt"; 
+import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
+import UserModel from "../dao/models/user.model.js";
+import dotenv from "dotenv";
 
-const JWTStrategy = jwt.Strategy; 
-const ExtractJwt = jwt.ExtractJwt; 
+dotenv.config();
 
-const initializePassport = () => {
-    passport.use("current", new JWTStrategy({
-        jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]), 
-        secretOrKey: "coderhouse"
-    }, async (jwt_payload, done) => {
-        try {
-            return done(null, jwt_payload); 
-        } catch (error) {
-            return done(error);
-        }
-    }))
-}
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET_KEY
+};
 
-const cookieExtractor = (req) => {
-    console.log("Cookies recibidas:", req.cookies);
-    let token = null; 
-    if(req && req.cookies) {
-        token = req.cookies["CookieToken"]; 
+passport.use("jwt",new JwtStrategy(jwtOptions, async (jwt_payload, done) => {
+    try {
+      console.log("JWT Payload recibido:", jwt_payload);
+      const user = await UserModel.findById(jwt_payload.id);
+      if (!user) return done(null, false);
+      return done(null, user);
+    } catch (error) {
+      return done(error, false);
     }
-    console.log("Token extraído:", token);
-    return token; 
-}
+  })
+);
 
-export default initializePassport; 
+export default passport;

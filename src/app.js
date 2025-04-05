@@ -3,7 +3,6 @@ import __dirname from "./utils.js";
 import handlebars from "express-handlebars";
 import { configureSocket } from './sockets/sockets.js';
 
-
 import productRouter from "./routes/product.router.js";
 import cartRouter from "./routes/carts.router.js";
 import realRouter from "./routes/realTime.router.js";
@@ -13,7 +12,7 @@ import mongoose from 'mongoose';
 import dotenv from "dotenv";
 dotenv.config();
 
-import passport from "passport";
+import passport from "./config/passport.config.js";
 import cookieParser from 'cookie-parser';
 import initializePassport from "../src/config/passport.config.js";
 
@@ -27,7 +26,6 @@ app.use(express.static( __dirname + '/public'))
 
 app.use(cookieParser());
 app.use(passport.initialize()); 
-initializePassport();
 
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');

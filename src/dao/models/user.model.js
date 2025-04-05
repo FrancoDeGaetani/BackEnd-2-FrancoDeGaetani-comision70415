@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
-import CartModel from '../models/cart.model.js';
+import CartModel from './cart.model.js';
 
 const userSchema = new mongoose.Schema({
     first_name: { type: String, required: true },

@@ -1,37 +1,40 @@
 import { Router } from 'express';
 import jwt from 'jsonwebtoken';
-import UserModel from '../models/user.model.js';
-import CartModel from '../models/cart.model.js';
+import UserModel from '../dao/models/user.model.js';
+import CartModel from '../dao/models/cart.model.js';
 import { isValidPassword } from "../utilities/util.js"; 
-import passport from "passport";
+
+import { UserDTO } from "../dto/user.dto.js";
+import { passportCall } from "../middlewares/passportCall.js";
 
 const router = Router();
 
 router.post('/register', async (req, res) => {
     try {
-        const { first_name, last_name, email, age, password } = req.body;
+        const { first_name, last_name, email, age, password, role } = req.body;
+
         const newCart = await CartModel.create({ products: [] });
         const existingUser = await UserModel.findOne({ email });
 
         if (existingUser) return res.status(400).json({ message: 'El usuario ya existe' });
 
         const newUser = await UserModel.create({
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            age: req.body.age,
-            password: req.body.password,
-            cart: newCart._id 
+            first_name,
+            last_name,
+            email,
+            age,
+            password,
+            cart: newCart._id,
+            role: role || 'user'
         });
 
-        await newUser.save();
-        
         res.status(201).json({ message: 'Usuario registrado con éxito' });
-        
+
     } catch (error) {
         res.status(500).json({ message: 'Error al registrar usuario', error: error.message });
     }
 });
+
 
 router.post("/login", async (req, res) => {
     try {
@@ -44,8 +47,8 @@ router.post("/login", async (req, res) => {
 
         const token = jwt.sign(
             { id: user._id, role: user.role },
-            "coderhouse", // 
-            { expiresIn: "1h" }
+            process.env.JWT_SECRET_KEY,
+            { expiresIn: '1h' }
         );
 
         res.cookie("CookieToken", token, {
@@ -61,21 +64,14 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.get("/current", passport.authenticate("current", { session: false }), async (req, res) => {
-    try {
-        console.log("Payload del token:", req.user); 
-
-        const user = await UserModel.findById(req.user.id).lean(); 
-
-        if (!user) return res.status(404).send("Usuario no encontrado");
-
-        console.log("Usuario encontrado:", user);
-        res.render("profile", { usuario: user.first_name });
-
-    } catch (error) {
-        console.error("Error al obtener el usuario:", error);
-        res.status(500).send("Error en el servidor");
+router.get("/current", passportCall("jwt"), (req, res) => {
+    
+    if (!req.user) {
+        return res.status(401).json({ error: "No autorizado" });
     }
+
+    const userDTO = new UserDTO(req.user);
+    res.json(userDTO);
 });
 
 
